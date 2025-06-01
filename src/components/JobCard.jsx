@@ -20,10 +20,11 @@ function JobCard({jobInfo, prepData, saveData}) {
 
             <select name="status" id="status" value={status} onChange={e=>setStatus(e.target.value)}>
                 <option value="None">None</option>
-                <option value="pending">Pending</option>
-                <option value="interview">Interview</option>
-                <option value="offer">Offer</option>
-                <option value="rejected">Rejected</option>
+                <option value="Pending">Pending</option>
+                <option value="Wishlist">Wishlist</option>
+                <option value="Interview">Interview</option>
+                <option value="Offered">Offered</option>
+                <option value="Rejected">Rejected</option>
             </select>
 
             <label htmlFor="calendar">Date Applied:</label>
