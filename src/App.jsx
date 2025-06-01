@@ -1,8 +1,11 @@
 import {useState} from 'react'
 import JobCard from './components/JobCard'
+import JobStatus from './components/JobStatus';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
+
+  const statusCardTitle = [{title:"total",id:uuidv4()},{title:"Offered",id:uuidv4()},{title:"Interview",id:uuidv4()},{title:"Pending",id:uuidv4()},{title:"Wishlist",id:uuidv4()},{title:"Rejected",id:uuidv4()}]
 
   const storageKey = "jobEntries";
   
@@ -20,6 +23,10 @@ function App() {
 
   function showJobCard(){
       cardShown==true?setCardShown(false):setCardShown(true);
+  }
+
+  function getData(){
+    return JSON.parse(localStorage.getItem(storageKey));
   }
 
   function prepData(){
@@ -43,11 +50,22 @@ function App() {
 
   return (
     <>
-    <div className="w-full flex justify-center">
+    {/* <div className="w-full flex justify-center">
       <button className="p-4 border border-black bg-blue-400 text-3xl text-white rounded-2xl cursor-pointer" onClick={showJobCard}>Add</button>
     </div>
-    {cardShown==true?<JobCard jobInfo={jobInfo} prepData={prepData} saveData={saveData}/>:null}
-
+    {cardShown==true?<JobCard jobInfo={jobInfo} prepData={prepData} saveData={saveData}/>:null} */}
+    
+    <header className="w-full bg-gray-200 h-14">
+      <nav className="h-full flex items-center">
+        <h1 className="text-2xl">Dashboard</h1>
+      </nav>
+    </header>
+    <main>
+      <h2 className="text-xl">Overview</h2>
+      {statusCardTitle.map((cardTitle)=>{
+        return <JobStatus key={cardTitle.id} title={cardTitle.title} getData={getData} />
+      })}
+    </main>
 
 
     </>
