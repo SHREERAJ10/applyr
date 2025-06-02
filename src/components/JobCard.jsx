@@ -3,6 +3,7 @@ import {useState} from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { v4 as uuidv4 } from 'uuid';
+import SaveBtn from './SaveBtn';
 
 function JobCard({storageKey, setCardShown}) {
 
@@ -20,15 +21,6 @@ function JobCard({storageKey, setCardShown}) {
         id: uuidv4()
       }
       return jobData;
-  }
-
-    function saveData(jobData){
-        if(localStorage.getItem(storageKey) == null){
-        localStorage.setItem(storageKey,JSON.stringify([]));
-        }
-        const currentEntries = JSON.parse(localStorage.getItem(storageKey));
-        localStorage.setItem(storageKey,JSON.stringify([...currentEntries,jobData]));
-        setCardShown(false);
   }
 
   return (
@@ -53,9 +45,9 @@ function JobCard({storageKey, setCardShown}) {
             <label htmlFor="calendar">Date Applied:</label>
             <Calendar id="calendar" value={dateApplied} onChange={setDateApplied} />
 
-            <button className="border border-black bg-blue-400 text-lg text-white rounded-2xl cursor-pointer" onClick = {()=>{
-                saveData(prepData());
-            }}>Save</button>
+            <div className="">
+              <SaveBtn storageKey={storageKey} prepData={prepData} setCardShown={setCardShown} />
+            </div>
         </div>
     </div>
     </>
