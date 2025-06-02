@@ -1,12 +1,35 @@
 import React from 'react'
+import {useState} from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
+import { v4 as uuidv4 } from 'uuid';
 
-function JobCard({jobInfo, prepData, saveData}) {
-    const {companyName, setCompanyName,
-    position, setPosition,
-    status, setStatus,
-    dateApplied, setDateApplied} = jobInfo;
+function JobCard({storageKey, setCardShown}) {
+
+    const [companyName, setCompanyName] = useState('');
+    const [position, setPosition] = useState('');
+    const [status, setStatus] = useState('');
+    const [dateApplied, setDateApplied] = useState(new Date());
+
+    function prepData(){
+      const jobData = {
+        companyName:companyName,
+        jobPosition:position,
+        jobStatus:status,
+        date:dateApplied.toDateString(),
+        id: uuidv4()
+      }
+      return jobData;
+  }
+
+    function saveData(jobData){
+        if(localStorage.getItem(storageKey) == null){
+        localStorage.setItem(storageKey,JSON.stringify([]));
+        }
+        const currentEntries = JSON.parse(localStorage.getItem(storageKey));
+        localStorage.setItem(storageKey,JSON.stringify([...currentEntries,jobData]));
+        setCardShown(false);
+  }
 
   return (
     <>
