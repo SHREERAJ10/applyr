@@ -26,15 +26,20 @@ function JobCard({ storageKey, setCardShown }) {
 
   return (
     <>
-      <div className="w-full flex justify-center mt-8">
-        <div className="flex flex-col gap-2 bg-gray-100 w-80 h-[500px] rounded-30xl">
-          <input type="text" name="company-name" placeholder="Company Name" className="outline outline-black" value={companyName} onChange={e => setCompanyName(e.target.value)} />
+      <div className="w-full h-screen flex justify-center items-center absolute">
+        <div className="absolute border border-black w-full h-full bg-black opacity-25">
+          djalsdfjl;
+        </div>
 
-          <input type="text" name="position" placeholder="position" className="outline outline-black" value={position} onChange={e => setPosition(e.target.value)} />
+        <div className="flex flex-col gap-2 max-w-[340px] bg-white p-3 rounded-xl shadow shadow-black z-20">
+          <h1 className="text-2xl text-slate-800 font-semibold">Add Job Entry</h1>
+          <input type="text" name="company-name" placeholder="Company Name" className="border border-blue-200 p-2 rounded-xl" value={companyName} onChange={e => setCompanyName(e.target.value)} />
 
-          <label htmlFor="status">Status</label>
+          <input type="text" name="position" placeholder="Position" className="border border-blue-200 p-2 rounded-xl" value={position} onChange={e => setPosition(e.target.value)} />
 
-          <select name="status" id="status" value={status} onChange={e => setStatus(e.target.value)}>
+          <label htmlFor="status" className="font-semibold">Status</label>
+
+          <select name="status" id="status" value={status} onChange={e => setStatus(e.target.value)} className="border border-blue-200 p-2 rounded-xl cursor-pointer">
             <option value="None">None</option>
             <option value="Pending">Pending</option>
             <option value="Wishlist">Wishlist</option>
@@ -43,11 +48,11 @@ function JobCard({ storageKey, setCardShown }) {
             <option value="Rejected">Rejected</option>
           </select>
 
-          <label htmlFor="calendar">Date Applied:</label>
+          <label htmlFor="calendar" className="font-semibold">Date:</label>
           <Calendar id="calendar" value={dateApplied} onChange={setDateApplied} />
 
-          <div className="flex justify-around">
-            <div className="border border-gray-300 w-20 rounded-xl">
+          <div className="flex justify-between">
+            <div className="border border-slate-200 w-20 rounded-xl">
               <CancelBtn setCardShown={setCardShown} />
             </div>
             <div className="bg-blue-500 text-white w-20 flex items-center justify-center rounded-xl">
