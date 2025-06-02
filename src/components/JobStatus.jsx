@@ -1,9 +1,10 @@
 import React from 'react'
 
-function JobStatus({title, getData}) {
+function JobStatus({title, bgColor, numberColor, getData}) {
 
     let cardTitle=title=="total"?"Total Job Entries":title;
     let total=0;
+
     const jobDataArray = getData();
     if(jobDataArray != null){
         if(title == "total"){
@@ -20,9 +21,9 @@ function JobStatus({title, getData}) {
 
   return (
     <>
-    <div className="inline-flex flex-col border border-black p-2 items-left justify-center text-lg rounded-xl">
-        <span>{cardTitle}</span>
-        <span>{total}</span>
+    <div className={`inline-flex flex-col ${bgColor} p-2 items-left justify-center text-base rounded-xl`}>
+        <span className="text-gray-700 font-semibold">{cardTitle}</span>
+        <span className={`${numberColor} font-bold`}>{total}</span>
     </div>
     </>
   )
