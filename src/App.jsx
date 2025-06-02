@@ -20,9 +20,12 @@ function App() {
 
   return (
     <>
-    <div className="w-full flex justify-center">
-      <AddBtn showJobCard={showJobCard}/>
+    <div className="w-full absolute bottom-4 flex justify-end pr-4">
+      <div className="bg-blue-500 w-16 h-16 rounded-full text-white text-4xl flex justify-center items-center">
+        <AddBtn showJobCard={showJobCard}/>
+      </div>
     </div>
+
     {cardShown==true?
       <JobCard storageKey={storageKey} setCardShown={setCardShown} />:
       null}
