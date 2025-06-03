@@ -3,7 +3,7 @@ import JobCard from './components/JobCard'
 import JobStatus from './components/JobStatus';
 
 import Overview from './components/Overview';
-import AddBtn from './components/AddBtn';
+import Button from './components/Button';
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
     <>
     <div className="w-full absolute bottom-4 flex justify-end pr-4">
       <div className="bg-blue-500 w-16 h-16 rounded-full text-white text-4xl flex justify-center items-center">
-        <AddBtn showJobCard={showJobCard}/>
+        <Button onClick={showJobCard} text="+" />
       </div>
     </div>
 
