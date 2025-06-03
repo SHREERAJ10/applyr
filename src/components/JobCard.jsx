@@ -3,14 +3,13 @@ import { useState } from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { v4 as uuidv4 } from 'uuid';
-import SaveBtn from './SaveBtn';
-import CancelBtn from './CancelBtn';
+import Button from './Button';
 
 function JobCard({ storageKey, setCardShown }) {
 
   const [companyName, setCompanyName] = useState('');
   const [position, setPosition] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('Pending');
   const [dateApplied, setDateApplied] = useState(new Date());
 
   function prepData() {
@@ -24,23 +23,41 @@ function JobCard({ storageKey, setCardShown }) {
     return jobData;
   }
 
+  function saveData(jobData) {
+        if (localStorage.getItem(storageKey) == null) {
+            localStorage.setItem(storageKey, JSON.stringify([]));
+        }
+        const currentEntries = JSON.parse(localStorage.getItem(storageKey));
+        localStorage.setItem(
+            storageKey,
+            JSON.stringify([...currentEntries, jobData])
+        );
+        setCardShown(false);
+    }
+
+  // function validate(){
+  //   if(companyName.trim()=="" || position.trim()=="" || status.trim()==""){
+  //     alert("shit");
+  //     return false;
+  //   }
+  //   return true;
+  // }
+
   return (
     <>
-      <div className="w-full h-screen flex justify-center items-center absolute">
+      <form className="w-full h-screen flex justify-center items-center absolute" onSubmit={()=>saveData(prepData())}>
         <div className="absolute border border-black w-full h-full bg-black opacity-25">
-          djalsdfjl;
         </div>
 
         <div className="flex flex-col gap-2 max-w-[340px] bg-white p-3 rounded-xl shadow shadow-black z-20">
           <h1 className="text-2xl text-slate-800 font-semibold">Add Job Entry</h1>
-          <input type="text" name="company-name" placeholder="Company Name" className="border border-blue-200 p-2 rounded-xl" value={companyName} onChange={e => setCompanyName(e.target.value)} />
+          <input type="text" name="company-name" placeholder="Company Name" className="border border-blue-200 p-2 rounded-xl" value={companyName} onChange={e => setCompanyName(e.target.value)} required />
 
-          <input type="text" name="position" placeholder="Position" className="border border-blue-200 p-2 rounded-xl" value={position} onChange={e => setPosition(e.target.value)} />
+          <input type="text" name="position" placeholder="Position" className="border border-blue-200 p-2 rounded-xl" value={position} onChange={e => setPosition(e.target.value)} required />
 
-          <label htmlFor="status" className="font-semibold">Status</label>
+          <label htmlFor="jobStatus" className="font-semibold">Status</label>
 
-          <select name="status" id="status" value={status} onChange={e => setStatus(e.target.value)} className="border border-blue-200 p-2 rounded-xl cursor-pointer">
-            <option value="None">None</option>
+          <select name="status" id="jobStatus" value={status} onChange={e =>setStatus(e.target.value)} className="border border-blue-200 p-2 rounded-xl cursor-pointer">
             <option value="Pending">Pending</option>
             <option value="Wishlist">Wishlist</option>
             <option value="Interview">Interview</option>
@@ -48,19 +65,19 @@ function JobCard({ storageKey, setCardShown }) {
             <option value="Rejected">Rejected</option>
           </select>
 
-          <label htmlFor="calendar" className="font-semibold">Date:</label>
-          <Calendar id="calendar" value={dateApplied} onChange={setDateApplied} />
+          <label className="font-semibold">Date:</label>
+          <Calendar value={dateApplied} onChange={setDateApplied} />
 
           <div className="flex justify-between">
-            <div className="border border-slate-200 w-20 rounded-xl">
-              <CancelBtn setCardShown={setCardShown} />
+            <div className="border border-slate-200 w-20 rounded-xl flex justify-center" >
+              <Button onClick = {()=>setCardShown(false)} text="Cancel" />
             </div>
             <div className="bg-blue-500 text-white w-20 flex items-center justify-center rounded-xl">
-              <SaveBtn storageKey={storageKey} prepData={prepData} setCardShown={setCardShown} />
+              <Button type="submit" text="Save" />
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </>
   )
 }
