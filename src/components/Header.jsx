@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Sidebar from './Sidebar'
 import {AlignJustify, CircleUserRound} from "lucide-react"
 import {motion} from 'framer-motion'
@@ -9,18 +9,26 @@ function Header() {
 
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(()=>{
+    if(isOpen){
+      document.body.classList.add("overflow-hidden");
+    }
+    else{
+      document.body.classList.remove("overflow-hidden");
+    }
+  },[isOpen]);
+
   function toggleSidebar(){
     setIsOpen((prev)=>!prev);
-    console.log("test")
   }
 
   return (
-    <header className="w-full bg-white h-14 shadow shadow-black flex items-center">
+    <header className="w-full bg-white shadow shadow-black flex items-center">
 
       {/* Sidebar */}
-        <div>
+        <div className="h-auto">
           {isOpen && <Backdrop onClick={toggleSidebar} />}
-          <motion.div className="absolute top-0 w-[70vw]"
+          <motion.div className="absolute top-0 w-[70vw] z-20"
             initial={{x:'-100%'}}
             animate={{x:isOpen?0:'-100%'}}
             transition={{type:'tween',duration:0.3}}>
@@ -29,7 +37,7 @@ function Header() {
         </div>
 
       {/* Navigation-header */}
-      <div className="w-full flex justify-around items-center">
+      <div className="w-full flex justify-around items-center h-14">
         <div className="cursor-pointer" onClick={toggleSidebar}>
             <AlignJustify strokeWidth={4} size={24} />
         </div>
