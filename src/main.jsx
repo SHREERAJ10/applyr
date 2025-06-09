@@ -6,6 +6,7 @@ import AppLayout from './components/AppLayout.jsx'
 import App from './App.jsx'
 import AllJobs from './pages/AllJobs.jsx'
 import Stats from './pages/Stats.jsx'
+import Logout from './pages/Logout.jsx'
 
 const router = createBrowserRouter([
 
@@ -24,8 +25,12 @@ const router = createBrowserRouter([
       {
         path:'stats',
         element: <Stats />
-      }
+      },
     ]
+  },
+  {
+    path:'logout',
+    element:<Logout />
   }
   
   // {path:'/',element:<App />},
