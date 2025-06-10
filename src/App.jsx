@@ -1,12 +1,17 @@
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import AppLayout from './components/AppLayout.jsx'
-import Dashboard from './Dashboard.jsx'
+import Dashboard from './pages/Dashboard.jsx'
 import AllJobs from './pages/AllJobs.jsx'
 import Stats from './pages/Stats.jsx'
 import Logout from './pages/Logout.jsx'
 
 function App() {
 
+  function getData() {
+    const storageKey = "jobEntries";
+    let data = JSON.parse(localStorage.getItem(storageKey));
+    return data==null?[]:data;
+  }
 
   const router = createBrowserRouter([
     {
@@ -15,15 +20,15 @@ function App() {
       children: [
         {
           index: true,
-          element: <Dashboard />
+          element: <Dashboard getData={getData} />
         },
         {
           path: 'alljobs',
-          element: <AllJobs getData="test" />
+          element: <AllJobs getData={getData} />
         },
         {
           path: 'stats',
-          element: <Stats />
+          element: <Stats getData={getData} />
         },
       ]
     },
