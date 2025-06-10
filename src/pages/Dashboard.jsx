@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import DataCard from "../components/DataCard";
 import JobsList from "../components/JobsList";
 
-function Dashboard() {
+function Dashboard({getData}) {
 
   const storageKey = "jobEntries";
   const [cardShown, setCardShown] = useState(false);
@@ -16,45 +16,54 @@ function Dashboard() {
     cardShown == true ? setCardShown(false) : setCardShown(true);
   }
 
-  function getData() {
-    return JSON.parse(localStorage.getItem(storageKey));
-  }
-
   function getApplicationsPerPosition() {
     const jobDataArray = getData();
     let applicationsPerPosition = {};
-    for (let jobData of jobDataArray) {
-      let position = jobData.jobPosition;
-      if (position.trim().toLowerCase() in applicationsPerPosition) {
-        applicationsPerPosition[position] += 1;
-      } else {
-        applicationsPerPosition[position] = 1;
+
+    if(jobDataArray.length!=0){
+      for (let jobData of jobDataArray) {
+        let position = jobData.jobPosition;
+        if (position.trim().toLowerCase() in applicationsPerPosition) {
+          applicationsPerPosition[position] += 1;
+        } else {
+          applicationsPerPosition[position] = 1;
+        }
       }
+      return applicationsPerPosition; //returns object
     }
-    return applicationsPerPosition;
+    else{
+      return null;
+    }
   }
 
   function applicationsPerPositionToArray(applicationsPerPosition) {
     let jobPositionsArr = [];
-    for (let key in applicationsPerPosition) {
-        jobPositionsArr.push({
-        position: key,
-        applications: applicationsPerPosition[key],
-        id:uuidv4()
-      });
+
+    if(applicationsPerPosition != null){
+      for (let key in applicationsPerPosition) {
+          jobPositionsArr.push({
+          position: key,
+          applications: applicationsPerPosition[key],
+          id:uuidv4()
+        });
+      }
     }
-    return jobPositionsArr;
+    return jobPositionsArr; //returns array: empty or with elements
   }
 
   function getPendingApplications() {
     let jobDataArray = getData();
     let pendingApplications = [];
-    for (let jobData of jobDataArray) {
-      if (jobData.jobStatus.toLowerCase() == "pending") {
-        pendingApplications.push(jobData);
+
+    if(jobDataArray.length!=0){
+      for (let jobData of jobDataArray) {
+        if (jobData.jobStatus.toLowerCase() == "pending") {
+          pendingApplications.push(jobData);
+        }
       }
     }
-    return pendingApplications;
+    return pendingApplications; //returns array: empty or with elements
+    
   }
 
   return (
@@ -74,6 +83,8 @@ function Dashboard() {
       
       <div className="mt-4">
         <h2 className="font-bold text-xl pl-8">Recent Activity</h2>
+
+        {/* Passes only last 3 elements from the array */}
         <JobsList jobEntries={(()=>getData().slice(-3).reverse())()} />
       </div>
 
