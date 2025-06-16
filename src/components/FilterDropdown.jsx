@@ -2,8 +2,8 @@ import React from 'react'
 
 function FilterDropdown({filterBy, setFilterBy}) {
   return (
-    <div className="border border-black inline-block bg-gray-100">
-        <select name="Filter" id="filter" value={filterBy} onChange={e=>setFilterBy(e.target.value)}>
+    <div className="inline-block bg-gray-50 border border-gray-100 p-1 rounded-xl text-gray-900">
+        <select name="Filter" id="filter" value={filterBy} onChange={e=>setFilterBy(e.target.value)} className="focus:outline-none">
             <option value="all">All</option>
             <option value="pending">Pending</option>
             <option value="interview">Interview</option>
