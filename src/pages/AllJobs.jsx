@@ -24,9 +24,12 @@ function AllJobs({ getData }) {
   }
 
   return (
-    <div>
-      <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
-      <FilterDropdown filterBy={filterBy} setFilterBy={setFilterBy} />
+    <div className="flex flex-col gap-2 pt-2">
+      <div className="flex gap-6 pl-6">
+        <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
+        <FilterDropdown filterBy={filterBy} setFilterBy={setFilterBy} />
+      </div>
+
       <JobsList jobEntries={sortArray(filterArray())} />
     </div>
   )
