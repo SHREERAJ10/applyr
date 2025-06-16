@@ -1,84 +1,39 @@
 import React from 'react'
-import { useState } from 'react'
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
-import { v4 as uuidv4 } from 'uuid';
-import Button from './Button';
+import { X, Calendar, Trash2, Pencil  } from 'lucide-react';
 
-function JobCard({ storageKey, setCardShown }) {
-
-  const [companyName, setCompanyName] = useState('');
-  const [position, setPosition] = useState('');
-  const [status, setStatus] = useState('Pending');
-  const [dateApplied, setDateApplied] = useState(new Date());
-
-  function prepData() {
-    const jobData = {
-      companyName: companyName,
-      jobPosition: position,
-      jobStatus: status,
-      date: dateApplied.toDateString(),
-      id: uuidv4()
-    }
-    return jobData;
-  }
-
-  function saveData(jobData) {
-        if (localStorage.getItem(storageKey) == null) {
-            localStorage.setItem(storageKey, JSON.stringify([]));
-        }
-        const currentEntries = JSON.parse(localStorage.getItem(storageKey));
-        localStorage.setItem(
-            storageKey,
-            JSON.stringify([...currentEntries, jobData])
-        );
-        setCardShown(false);
-    }
-
-  // function validate(){
-  //   if(companyName.trim()=="" || position.trim()=="" || status.trim()==""){
-  //     alert("shit");
-  //     return false;
-  //   }
-  //   return true;
-  // }
-
+function JobCard() {
   return (
-    <>
-      <form className="w-full h-screen flex justify-center items-center absolute" onSubmit={()=>saveData(prepData())}>
-        <div className="absolute border border-black w-full h-full bg-black opacity-25">
-        </div>
-
-        <div className="flex flex-col gap-2 max-w-[340px] bg-white p-3 rounded-xl shadow shadow-black z-20">
-          <h1 className="text-2xl text-slate-800 font-semibold">Add Job Entry</h1>
-          <input type="text" name="company-name" placeholder="Company Name" className="border border-blue-200 p-2 rounded-xl" value={companyName} onChange={e => setCompanyName(e.target.value)} required />
-
-          <input type="text" name="position" placeholder="Position" className="border border-blue-200 p-2 rounded-xl" value={position} onChange={e => setPosition(e.target.value)} required />
-
-          <label htmlFor="jobStatus" className="font-semibold">Status</label>
-
-          <select name="status" id="jobStatus" value={status} onChange={e =>setStatus(e.target.value)} className="border border-blue-200 p-2 rounded-xl cursor-pointer">
-            <option value="Pending">Pending</option>
-            <option value="Wishlist">Wishlist</option>
-            <option value="Interview">Interview</option>
-            <option value="Offered">Offered</option>
-            <option value="Rejected">Rejected</option>
-          </select>
-
-          <label className="font-semibold">Date:</label>
-          <Calendar value={dateApplied} onChange={setDateApplied} />
-
+    <div className="fixed top-56 w-full flex justify-center">
+        <div className="shadow shadow-black w-96 bg-white p-4 rounded-3xl flex flex-col gap-4">
           <div className="flex justify-between">
-            <div className="border border-slate-200 w-20 rounded-xl flex justify-center" >
-              <Button onClick = {()=>setCardShown(false)} text="Cancel" />
+            <div>
+              <h1 className="font-bold text-2xl">Dropbox</h1>
+              <h2 className="font-semibold text-lg">Product Manager</h2>
             </div>
-            <div className="bg-blue-500 text-white w-20 flex items-center justify-center rounded-xl">
-              <Button type="submit" text="Save" />
+            <div>
+              <X color="#9CA3AF" />
             </div>
           </div>
+
+          <div className="flex justify-between">
+            <div className="flex gap-2">
+              <Calendar color="#374151" strokeWidth={1.5} />
+              <div className="flex flex-col text-gray-700">
+                <span>Applied on</span>
+                <span>June 6, 2024</span>
+              </div>
+            </div>
+            <div>
+              <span>Interview</span>
+            </div>
+          </div>
+
+          <div className="flex justify-between">
+            <Pencil color="	#3B82F6" strokeWidth={1.5} />
+            <Trash2 color="#EF4444" strokeWidth={1.5} />
+          </div>
         </div>
-      </form>
-    </>
+    </div>
   )
 }
 
