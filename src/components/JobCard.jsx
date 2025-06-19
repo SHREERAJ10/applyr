@@ -4,7 +4,7 @@ import Button from './Button';
 import { X, Calendar, Trash2, Pencil  } from 'lucide-react';
 import StatusTag from './statusTag';
 
-function JobCard({cardData, toggleJobCard}) {
+function JobCard({cardData, toggleJobCard, deleteOrNot}) {
   return (
     <div className="fixed top-56 w-full flex justify-center p-4">
         <Backdrop onClick={toggleJobCard} />
@@ -32,7 +32,7 @@ function JobCard({cardData, toggleJobCard}) {
 
           <div className="flex justify-between">
             <Button text={<Pencil color="	#3B82F6" strokeWidth={1.5} />} /> 
-            <Button text={<Trash2 color="#EF4444" strokeWidth={1.5} />} /> 
+            <Button text={<Trash2 color="#EF4444" strokeWidth={1.5} onClick = {deleteOrNot} />} /> 
             
             
           </div>
