@@ -4,6 +4,7 @@ import SortDropdown from '../components/SortDropdown'
 import FilterDropdown from '../components/FilterDropdown';
 import JobCard from '../components/JobCard';
 import ConfirmationPopup from '../components/ConfirmationPopup';
+import JobEntryFrom from '../components/JobEntryForm'
 
 function AllJobs({ getData, storageKey }) {
 
@@ -13,6 +14,7 @@ function AllJobs({ getData, storageKey }) {
   const [sortBy, setSortBy] = useState('latest');
   const [filterBy, setFilterBy] = useState('all');
   const [deleteBtnPressed, setDeleteBtnPressed] = useState(false);
+  const [isEditBtnPressed, setIsEditBtnPressed] = useState(false);
 
   function filterArray() {
     let filteredArray = filterBy == 'all' ? allJobData : 
@@ -25,8 +27,6 @@ function AllJobs({ getData, storageKey }) {
   function sortArray(filteredArray) {
     return sortBy=='oldest'?filteredArray:[...filteredArray].reverse();
   }
-
-
 
   function toggleJobCard(){
     showJobCard==true?setShowJobCard(false):setShowJobCard(true);
@@ -59,10 +59,15 @@ function AllJobs({ getData, storageKey }) {
 
       <JobsList jobEntries={sortArray(filterArray())} setJobCardData = {setJobCardData} toggleJobCard={toggleJobCard} />
 
-      {showJobCard==true?<JobCard cardData={jobCardData} toggleJobCard={toggleJobCard} deleteOrNot={proceedToDelete} />:null}
+      {showJobCard==true?<JobCard cardData={jobCardData} toggleJobCard={toggleJobCard} deleteOrNot={proceedToDelete} setIsEditBtnPressed={setIsEditBtnPressed} />:null}
 
       {deleteBtnPressed==true?
         <ConfirmationPopup text="Are you sure you want to delete this?" deleteOrNot={proceedToDelete} deleteJobEntry={deleteJobEntry} curJobId = {jobCardData.id} />:
+        null  
+      }
+
+      {isEditBtnPressed==true?
+        <JobEntryFrom setCardShown={setIsEditBtnPressed} prefillJobData = {jobCardData} storageKey="jobEntries" setAllJobData={setAllJobData} />:
         null  
     }
 
