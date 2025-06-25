@@ -1,8 +1,7 @@
 import React from 'react'
-import Backdrop from './Backdrop';
 import Button from './Button';
 import { X, Calendar, Trash2, Pencil } from 'lucide-react';
-import StatusTag from './statusTag';
+import StatusTag from './StatusTag';
 
 function JobCard({ cardData, toggleJobCard, deleteOrNot, setIsEditBtnPressed }) {
   return (
