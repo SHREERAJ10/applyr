@@ -20,7 +20,7 @@ function LandingPage() {
 
 
             <div className="w-full flex justify-center">
-                <img src="src/assets/hero-image.jpg" alt="" className="object-cover" />
+                <img src="../src/assets/hero-image.jpg" alt="" className="object-cover" />
             </div>
 
         </div>
