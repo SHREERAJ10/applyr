@@ -1,5 +1,5 @@
 import React from 'react'
-import StatusTag from './statusTag'
+import StatusTag from './StatusTag'
 
 function JobEntry({title, subtitle, status, onClick}) {
 
