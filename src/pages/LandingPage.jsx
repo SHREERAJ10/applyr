@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import heroImage from '../assets/hero-image.jpg'
 
 function LandingPage() {
     return (
@@ -20,7 +21,7 @@ function LandingPage() {
 
 
             <div className="w-full flex justify-center">
-                <img src="../src/assets/hero-image.jpg" alt="" className="object-cover" />
+                <img src={heroImage} alt="" className="object-cover" />
             </div>
 
         </div>
