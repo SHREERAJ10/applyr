@@ -1,27 +1,18 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
-import Sidebar from './Sidebar'
+import {useEffect} from 'react'
 import {AlignJustify, CircleUserRound} from "lucide-react"
-import {motion} from 'framer-motion'
-import Backdrop from './Backdrop'
 import {useLocation} from 'react-router-dom'
 
-function Header({title}) {
-
-  const [isOpen, setIsOpen] = useState(false);
+function Header({isOpen, toggleSidebar}) {
 
   const location = useLocation().pathname; //returns current path i.e. any one of the keys of titles object below
   const titles = {
-    "/":"Dashboard",
-    "/alljobs":"All Jobs",
-    "/stats": "Stats"
+    "/applyr/dashboard":"Dashboard",
+    "/applyr/alljobs":"All Jobs",
+    "/applyr/stats": "Stats"
   };
 
   const getTitle = ()=>titles[location]; //returns the value of the corresponding key from "titles" object
-  
-  function toggleSidebar(){
-    setIsOpen((prev)=>!prev);
-  }
 
   // 1. Disables scroll when the sidebar is opened.
   // 2. Adjusts the padding so as to avoid layot shift issue when sidebar is opened or closed
@@ -37,6 +28,8 @@ function Header({title}) {
     }
   },[isOpen]);
 
+
+  //For autoclose of sidebar when navigated from one page to another
   useEffect(()=>{
     if(isOpen){
       toggleSidebar();
@@ -45,20 +38,13 @@ function Header({title}) {
 
 
   return (
-    <header className="w-full shadow shadow-black flex items-center">
-
-      {/* Sidebar */}
-          {isOpen && <Backdrop onClick={toggleSidebar} />}
-          <motion.div className="top-0 w-[70vw] z-20 fixed"
-            initial={{x:'-100%'}}
-            animate={{x:isOpen?0:'-100%'}}
-            transition={{type:'tween',duration:0.3}}>
-            <Sidebar toggleSidebar={toggleSidebar} />
-          </motion.div>
+    <header className="w-full shadow shadow-black flex items-center bg-white">
 
       {/* Navigation-header */}
-      <div className="w-full flex justify-around items-center h-14">
-        <div className="cursor-pointer" onClick={toggleSidebar}>
+      <div className="w-full flex justify-between px-4 items-center h-14">
+
+        {/* Hamburger Icon */}
+        <div className="cursor-pointer lg:hidden" onClick={toggleSidebar}>
             <AlignJustify strokeWidth={4} size={24} />
         </div>
 
