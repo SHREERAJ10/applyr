@@ -5,7 +5,7 @@ import Overview from "../components/Overview";
 import Button from "../components/Button";
 import DataCard from "../components/DataCard";
 import JobsList from "../components/JobsList";
-import Backdrop from "../components/Backdrop"
+import Backdrop from "../components/Backdrop";
 
 function Dashboard({ getData, storageKey }) {
 
@@ -102,14 +102,12 @@ function Dashboard({ getData, storageKey }) {
       </div>
 
       <div className="fixed bottom-4 right-4 lg:right-12 flex justify-end z-0">
-        <div className="bg-blue-500 w-16 h-16 rounded-full text-white text-4xl flex justify-center items-center">
-          <Button onClick={showJobCard} text="+" />
-        </div>
+        <Button className="bg-blue-500 w-16 h-16 rounded-full text-white text-4xl flex justify-center items-center" onClick={showJobCard} text="+" />
       </div>
 
       {cardShown == true ? (
         <div>
-            <Backdrop onClick={() => setCardShown(false)} />
+          <Backdrop onClick={() => setCardShown(false)} />
           <div className="fixed top-[50%] left-[50%] -translate-[50%] z-20">
             <JobEntryForm setCardShown={setCardShown} storageKey={storageKey} />
           </div>

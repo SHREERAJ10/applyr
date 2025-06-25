@@ -1,14 +1,16 @@
 import React from "react";
+import {motion} from 'framer-motion'
 
-function Button({type="",text, onClick}) {
+function Button({type="",text, onClick,className}) {
     
     return (
         <>
-            <button type={type}
-                className="p-2 cursor-pointer" onClick={onClick}
+            <motion.button type={type}
+                className={`p-2 cursor-pointer ${className} `} onClick={onClick}
+                whileTap={{scale:0.8}}
             >
                 {text}
-            </button>
+            </motion.button>
         </>
     );
 }

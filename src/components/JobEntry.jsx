@@ -1,77 +1,27 @@
 import React from 'react'
-import { useState } from 'react'
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
-import { v4 as uuidv4 } from 'uuid';
-import Button from './Button';
-import Backdrop from './Backdrop';
+import StatusTag from './statusTag'
 
-function JobEntry({ storageKey, setCardShown }) {
+function JobEntry({title, subtitle, status, onClick}) {
 
-  const [companyName, setCompanyName] = useState('');
-  const [position, setPosition] = useState('');
-  const [status, setStatus] = useState('Pending');
-  const [dateApplied, setDateApplied] = useState(new Date());
-
-  function prepData() {
-    const jobData = {
-      companyName: companyName,
-      jobPosition: position,
-      jobStatus: status,
-      date: dateApplied.toDateString(),
-      id: uuidv4()
-    }
-    return jobData;
+  const tagColorObj = {
+    Interview:['bg-blue-100','text-blue-700'],
+    Offered:['bg-green-100','text-green-700'],
+    Wishlist:['bg-violet-100','text-violet-700'],
+    Pending:['bg-yellow-100','text-yellow-700'],
+    Rejected:['bg-red-100','text-red-700']
   }
 
-  function saveData(jobData) {
-        if (localStorage.getItem(storageKey) == null) {
-            localStorage.setItem(storageKey, JSON.stringify([]));
-        }
-        const currentEntries = JSON.parse(localStorage.getItem(storageKey));
-        localStorage.setItem(
-            storageKey,
-            JSON.stringify([...currentEntries, jobData])
-        );
-        setCardShown(false);
-    }
-
-
   return (
-    <>
-      <div className="w-full h-screen flex justify-center items-center absolute top-0">
-        <Backdrop onClick = {()=>setCardShown(false)} />
+    <div className="w-[90%] lg:bg-neutral-50 flex items-center justify-between border-b-1 border-gray-400 p-2 cursor-pointer hover:bg-gray-50" onClick={onClick}>
+        <div className="flex flex-col">
+            <span className="text-lg font-semibold text-gray-900">{title}</span>
+            <span className="text-gray-800">{subtitle}</span>
+        </div>
+        <div>
+            <StatusTag status = {status} />
+        </div>
 
-        <form className="flex flex-col gap-2 max-w-[340px] bg-white p-3 rounded-xl shadow shadow-black z-20" onSubmit={()=>saveData(prepData())}>
-          <h1 className="text-2xl text-slate-800 font-semibold">Add Job Entry</h1>
-          <input type="text" name="company-name" placeholder="Company Name" className="border border-blue-200 p-2 rounded-xl" value={companyName} onChange={e => setCompanyName(e.target.value)} required />
-
-          <input type="text" name="position" placeholder="Position" className="border border-blue-200 p-2 rounded-xl" value={position} onChange={e => setPosition(e.target.value)} required />
-
-          <label htmlFor="jobStatus" className="font-semibold">Status</label>
-
-          <select name="status" id="jobStatus" value={status} onChange={e =>setStatus(e.target.value)} className="border border-blue-200 p-2 rounded-xl cursor-pointer">
-            <option value="Pending">Pending</option>
-            <option value="Wishlist">Wishlist</option>
-            <option value="Interview">Interview</option>
-            <option value="Offered">Offered</option>
-            <option value="Rejected">Rejected</option>
-          </select>
-
-          <label className="font-semibold">Date:</label>
-          <Calendar value={dateApplied} onChange={setDateApplied} />
-
-          <div className="flex justify-between">
-            <div className="border border-slate-200 w-20 rounded-xl flex justify-center" >
-              <Button onClick = {()=>setCardShown(false)} text="Cancel" />
-            </div>
-            <div className="bg-blue-500 text-white w-20 flex items-center justify-center rounded-xl">
-              <Button type="submit" text="Save" />
-            </div>
-          </div>
-        </form>
-      </div>
-    </>
+    </div>
   )
 }
 

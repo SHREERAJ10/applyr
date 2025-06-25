@@ -14,17 +14,17 @@ function AppLayout() {
   }
 
   return (
-    <div className="lg:grid lg:grid-cols-[288px_1fr] lg:h-screen lg:overflow-hidden">
+    <div className="lg:grid lg:grid-cols-[260px_1fr] lg:h-screen lg:overflow-hidden">
 
       {isOpen && <Backdrop onClick={toggleSidebar} hide="lg:hidden" />}
-      <motion.div className="top-0 w-[70vw] z-20 fixed lg:hidden"
+      <motion.div className="top-0 w-[60vw] z-20 fixed lg:hidden"
         initial={{ x: '-100%' }}
         animate={{ x: isOpen ? 0 : '-100%' }}
         transition={{ type: 'tween', duration: 0.3 }}>
         <Sidebar toggleSidebar={toggleSidebar} />
       </motion.div>
 
-      <div className="hidden lg:block w-72">
+      <div className="hidden lg:block w-[260px]">
         <Sidebar toggleSidebar={toggleSidebar} />
       </div>
 

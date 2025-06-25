@@ -1,15 +1,15 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { House, LogOut, BookText, ChartNoAxesColumnIncreasing, X }
  from 'lucide-react';
 function Sidebar({ toggleSidebar }) {
   return (
-    <div className="">
-        <nav className="bg-white text-zinc-900 w-full flex flex-col gap-4 p-4 h-screen">
+    <div>
+        <nav className="bg-white text-zinc-900 w-full flex flex-col gap-8 p-4 h-screen">
           <div className="cursor-pointer lg:hidden" onClick={toggleSidebar}>
             <X />
           </div>
-          <h2 className="text-2xl pl-6 lg:text-xl font-semibold">Applyr</h2>
+          <Link to="/" className="pl-6 text-2xl font-semibold">Applyr</Link>
           <ul className="text-xl h-[60vh] flex flex-col gap-3 [&>*]:cursor-pointer [&>*]:rounded-2xl lg:text-lg font-medium">
             <li className="hover:bg-green-50">
               <NavLink to="/applyr/dashboard" className={({ isActive }) => `w-full p-4 flex items-center gap-2 rounded-2xl ${isActive ? "bg-green-50" : ""}`}>

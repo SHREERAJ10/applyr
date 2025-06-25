@@ -6,7 +6,8 @@ function JobStatus({title, bgColor, numberColor, getData}) {
     let total=0;
 
     const jobDataArray = getData();
-    if(jobDataArray != null){
+
+    if(jobDataArray.length != 0){
         if(title == "total"){
             total = jobDataArray.length;
         }

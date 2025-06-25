@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 function LandingPage() {
     return (
@@ -12,9 +13,9 @@ function LandingPage() {
                         Applyr helps you stay organized during your job hunt — fast, simple, and distraction-free.</p>
                 </div>
                 {/* CTA */}
-                <div className="bg-blue-800 rounded-xl w-32 text-xl text-white cursor-pointer p-2 ease-in-out transition-transform hover:brightness-105 hover:scale-90">
+                <Link to="/applyr"  className="bg-blue-800 rounded-xl w-32 text-xl text-white cursor-pointer p-2 ease-in-out transition-transform hover:brightness-105 hover:scale-90">
                     <span>Get Started</span>
-                </div>
+                </Link>
             </div>
 
 

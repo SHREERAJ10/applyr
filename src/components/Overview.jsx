@@ -21,7 +21,7 @@ function Overview({ getData }) {
     ];
 
     return (
-        <div className="p-2">
+        <div className="p-4">
             <h2 className="text-xl font-semibold mb-2">Overview</h2>
             <div className="flex flex-col gap-1">
 

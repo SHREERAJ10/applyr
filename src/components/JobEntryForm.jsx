@@ -4,7 +4,6 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { v4 as uuidv4 } from 'uuid';
 import Button from './Button';
-import Backdrop from './Backdrop';
 
 function JobEntryForm({ storageKey, setCardShown, prefillJobData, setAllJobData }) {
 
@@ -26,8 +25,8 @@ function JobEntryForm({ storageKey, setCardShown, prefillJobData, setAllJobData 
 
   function editJobEntry(entryToBeReplaced, editedJobEntry, jobDataArray) {
     const index = jobDataArray.indexOf(entryToBeReplaced);
-    if(index!=-1){
-      jobDataArray.splice(index, 1,editedJobEntry);
+    if (index != -1) {
+      jobDataArray.splice(index, 1, editedJobEntry);
     }
     return jobDataArray;
   }
@@ -40,27 +39,27 @@ function JobEntryForm({ storageKey, setCardShown, prefillJobData, setAllJobData 
     const currentEntries = JSON.parse(localStorage.getItem(storageKey));
     let newJobEntries = [...currentEntries, jobData];
 
-    for(let jobEntry of currentEntries) {
+    for (let jobEntry of currentEntries) {
+
+      //Edit Data
       if (jobEntry.id == jobData.id) {
         const editedJobEntries = editJobEntry(jobEntry, jobData, [...currentEntries])
         newJobEntries = editedJobEntries
         setAllJobData(newJobEntries)
       }
     }
+
+    //Save Data
     localStorage.setItem(
       storageKey,
       JSON.stringify(newJobEntries)
     );
-
   }
 
 
   return (
     <>
-      <div className="w-full h-screen flex justify-center items-center absolute top-0">
-        <Backdrop onClick={() => setCardShown(false)} />
-
-        <form className="flex flex-col gap-2 max-w-[340px] bg-white p-3 rounded-xl shadow shadow-black z-20" onSubmit={() => {
+        <form className="flex flex-col gap-2 max-w-[340px] bg-white p-3 rounded-xl shadow shadow-black" onSubmit={() => {
           saveData(prepData())
           setCardShown(false);
         }
@@ -92,7 +91,6 @@ function JobEntryForm({ storageKey, setCardShown, prefillJobData, setAllJobData 
             </div>
           </div>
         </form>
-      </div>
     </>
   )
 }

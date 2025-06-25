@@ -64,7 +64,7 @@ function AllJobs({ getData, storageKey }) {
           <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
           <FilterDropdown filterBy={filterBy} setFilterBy={setFilterBy} />
         </div>
-        <div className="bg-gray-50 border border-gray-100 rounded-xl text-gray-900">
+        <div className="bg-gray-100 border border-gray-100 rounded-xl text-gray-900">
           <Button text = "Clear All" onClick={clearAllEntries} />
         </div>
       </div>
