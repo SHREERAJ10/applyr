@@ -1,11 +1,13 @@
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import {createBrowserRouter, RouterProvider, Navigate} from 'react-router-dom'
 import AppLayout from './components/AppLayout.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import AllJobs from './pages/AllJobs.jsx'
 import Stats from './pages/Stats.jsx'
-import Logout from './pages/Logout.jsx'
+import LandingPage from './pages/LandingPage.jsx'
 
 function App() {
+
+  const storageKey = "jobEntries";
 
   function getData() {
     const storageKey = "jobEntries";
@@ -15,33 +17,37 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: '/',
+      path:'/',
+      element: <LandingPage />,
+    },
+    {
+      path: '/applyr',
       element: <AppLayout />,
       children: [
         {
-          index: true,
-          element: <Dashboard getData={getData} />
+          index:true,
+          element: <Navigate to='dashboard' replace />
+        },
+        {
+          path: 'dashboard',
+          element: <Dashboard getData={getData} storageKey={storageKey} />
         },
         {
           path: 'alljobs',
-          element: <AllJobs getData={getData} />
+          element: <AllJobs getData={getData} storageKey={storageKey} />
         },
         {
           path: 'stats',
           element: <Stats getData={getData} />
         },
       ]
-    },
-    {
-      path: 'logout',
-      element: <Logout />
     }
   ]);
 
   return (
-    <>
+    <div className="lg:bg-stone-50">
       <RouterProvider router={router} />
-    </>
+    </div>
   );
 }
 
