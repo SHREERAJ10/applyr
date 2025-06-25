@@ -2,6 +2,8 @@
 
 -- A simple job application tracking app built with react.
 
+# [Check it out:](https://applyr-ten.vercel.app/)
+
 # Why I built this?
 -- Just to practice building something that is useful in real world from user's pov. Plus, to sharpen my skills in react and learn new stuff.
 
