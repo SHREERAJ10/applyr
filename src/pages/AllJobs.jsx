@@ -5,7 +5,8 @@ import FilterDropdown from '../components/FilterDropdown';
 import JobCard from '../components/JobCard';
 import ConfirmationPopup from '../components/ConfirmationPopup';
 import JobEntryFrom from '../components/JobEntryForm';
-import Backdrop from '../components/Backdrop'
+import Backdrop from '../components/Backdrop';
+import Button from '../components/Button';
 
 function AllJobs({ getData, storageKey }) {
 
@@ -51,11 +52,21 @@ function AllJobs({ getData, storageKey }) {
     setDeleteBtnPressed(false);
   }
 
+  function clearAllEntries(){
+    localStorage.removeItem(storageKey);
+    setAllJobData([]);
+  }
+
   return (
     <div className="flex flex-col gap-2 pt-2">
-      <div className="flex gap-6 pl-6">
-        <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
-        <FilterDropdown filterBy={filterBy} setFilterBy={setFilterBy} />
+      <div className="flex justify-between px-4">
+        <div className="flex gap-6">
+          <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
+          <FilterDropdown filterBy={filterBy} setFilterBy={setFilterBy} />
+        </div>
+        <div className="bg-gray-50 border border-gray-100 rounded-xl text-gray-900">
+          <Button text = "Clear All" onClick={clearAllEntries} />
+        </div>
       </div>
 
       <JobsList jobEntries={sortArray(filterArray())} setJobCardData={setJobCardData} toggleJobCard={toggleJobCard} />
